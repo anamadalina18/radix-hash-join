@@ -37,11 +37,12 @@ end, so no synchronization is needed in the hot loop.
 | Path | Contents |
 |---|---|
 | `src/RadixJoin.cpp` | Radix-bit computation, `partition_helper` (histograms, prefix sums, scatter), parallel probe |
-| `include/RadixJoin.hpp` | `RadixJoin` declaration with the `bits` / `partitions` / `mask` members and the partition helper |
-| `include/Types.hpp` | Adds a `tuple_t(key, rid)` constructor used by the join |
+| `include/RadixJoin.hpp` | Course-provided header, extended by me with the `bits` / `partitions` / `mask` members and the partition helper |
 
 ## Notes
 
+- The repository deliberately leaves out the trivial edits I made to the course's `Types.hpp`
+  and `CMakeLists.txt`, since those are course files rather than implementation.
 - One partitioning pass only, as required by the assignment; the benchmark's test cases were sized
   so that a second pass is not needed.
 - Exercised on the course's basic and advanced test cases through its CI pipeline.
