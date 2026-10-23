@@ -68,6 +68,21 @@ Per-thread result vectors are concatenated once at the end, so the hot loop neve
 - **Single pass.** One-pass partitioning is required by the assignment and assumed by the tests; the
   code does not verify that a partition actually fits in cache.
 
+## Performance
+
+Measured locally on an **Intel Core i5-12450H (8 cores / 12 threads), 16 GB RAM, Windows 11**,
+`g++ 16.2 -O3`, single run, synthetic data. Indicative numbers, not a controlled suite.
+
+| Setting | Value |
+|---|---|
+| Input | `|R| = |S| = 4,000,000` tuples (16 B each) |
+| Config | `NUM_CORES = 8`, `L3_CACHE_SIZE = 12 MB` → 8 radix bits, 256 partitions |
+| Join time | **0.194 s** |
+| Throughput | **41.2 M input tuples/s**, 2.0 M result pairs (10.3 M pairs/s) |
+
+The dataset was chosen to stay inside the 8-bit fan-out the implementation supports (see
+limitations); with a larger input the partitioning would need a second pass.
+
 ## Files
 
 | Path | Contents |
